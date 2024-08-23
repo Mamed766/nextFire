@@ -42,6 +42,8 @@ const SignUp = () => {
         });
       }
 
+      sessionStorage.setItem("user", "true");
+
       setSubmitting(false);
       console.log(res);
       router.push("/dashboard");

@@ -27,6 +27,7 @@ export default function Home() {
         values.email,
         values.password
       );
+      sessionStorage.setItem("user", "true");
       console.log({ res });
       setSubmitting(false);
       router.push("/dashboard");

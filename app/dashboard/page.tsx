@@ -19,7 +19,7 @@ const Dashboard = () => {
 
   const [user] = useAuthState(auth);
   const router = useRouter();
-
+  const userSession = sessionStorage.getItem("user");
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -30,7 +30,7 @@ const Dashboard = () => {
     return () => unsubscribe();
   }, []);
 
-  if (!user) {
+  if (!user && !userSession) {
     router.push("/");
   }
 
