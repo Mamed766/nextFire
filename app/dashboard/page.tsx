@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import { signOut } from "firebase/auth";
 import Modal from "../_components/Modal";
+import Table from "../_components/table";
 const Dashboard = () => {
   const [userName, setUserName] = useState("");
   const [newUsername, setNewUsername] = useState("");
@@ -110,6 +111,9 @@ const Dashboard = () => {
             Cancel
           </button>
         </Modal>
+      </div>
+      <div className="mt-5">
+        <Table />
       </div>
     </div>
   );
