@@ -58,6 +58,9 @@ const Dashboard = () => {
 
       setUserName(newUsername);
       setModalIsOpen(false);
+
+      setNewUsername("");
+      setPassword("");
     } catch (error) {
       console.error("Error updating profile:", error);
     }
