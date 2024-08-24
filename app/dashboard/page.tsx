@@ -69,8 +69,9 @@ const Dashboard = () => {
   return (
     <div>
       <div className="w-full p-5 flex items-center gap-2 justify-end bg-black text-white">
-        <h2 className="">
-          Hello <span></span> {userName ? userName : "User"}!
+        <h2 className=" flex items-center pb-[7px] gap-1">
+          Hello{" "}
+          <span className="font-bold "> {userName ? userName : "User"}!</span>
         </h2>
         <button
           onClick={() => setModalIsOpen(true)}
