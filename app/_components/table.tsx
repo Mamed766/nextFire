@@ -1,9 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRequest } from "../_services/http/axiosFetcher";
+import { useRequest, useRequestMutation } from "../_services/http/axiosFetcher";
 import PostModal from "./PostModal";
+import { mutate } from "swr";
+import ViewModal from "./View";
 
 const Table = () => {
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<any>(null);
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -23,6 +27,27 @@ const Table = () => {
     setEditData(null);
     setIsEdit(false);
     setIsPostModalOpen(true);
+  };
+
+  const handleView = (todo: any) => {
+    setSelectedCard(todo);
+    setIsViewModalOpen(true);
+  };
+
+  const { trigger: deleteProject } = useRequestMutation("dataWithId", {
+    method: "DELETE",
+    module: "datasApi",
+  });
+
+  const handleDelete = async (todo: any) => {
+    try {
+      await deleteProject({
+        dynamicValue: todo.id,
+      });
+      mutate("data");
+    } catch (error) {
+      console.error("error", error);
+    }
   };
 
   return (
@@ -68,7 +93,10 @@ const Table = () => {
                   <td className="px-6 py-4">{todo.id}</td>
                   <td className="px-6 py-4">{todo.userId}</td>
                   <td className=" flex gap-2  py-4">
-                    <button className="font-medium text-blue-600 hover:underline">
+                    <button
+                      onClick={() => handleView(todo)}
+                      className="font-medium text-blue-600 hover:underline"
+                    >
                       View
                     </button>
                     <button
@@ -77,7 +105,10 @@ const Table = () => {
                     >
                       Edit
                     </button>
-                    <button className="font-medium text-red-600  hover:underline">
+                    <button
+                      onClick={() => handleDelete(todo)}
+                      className="font-medium text-red-600  hover:underline"
+                    >
                       Delete
                     </button>
                   </td>
@@ -92,6 +123,13 @@ const Table = () => {
           isEdit={isEdit}
           initialData={editData}
           todo={editData}
+        />
+      )}
+
+      {isViewModalOpen && (
+        <ViewModal
+          onClose={() => setIsViewModalOpen(false)}
+          todo={selectedCard}
         />
       )}
     </div>
