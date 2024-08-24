@@ -69,10 +69,10 @@ const Dashboard = () => {
   return (
     <div>
       <div className="w-full p-5 flex items-center gap-2 justify-end bg-black text-white">
-        <h2>Hello {userName ? userName : "User"}!</h2>
+        <h2 className="">Hello {userName ? userName : "User"}!</h2>
         <button
           onClick={() => setModalIsOpen(true)}
-          className=" bg-gray-400 p-1 rounded text-[12px]"
+          className=" text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
         >
           Update Profile
         </button>
@@ -82,7 +82,7 @@ const Dashboard = () => {
             signOut(auth);
             sessionStorage.removeItem("user");
           }}
-          className="bg-red-100 p-1 text-[12px] text-red-500 rounded"
+          className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
         >
           Logout
         </button>
