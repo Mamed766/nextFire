@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { Puff } from "react-loader-spinner";
 
 export default function Home() {
   const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
@@ -81,7 +82,13 @@ export default function Home() {
                 disabled={isSubmitting}
                 className="w-full p-3 mb-2 bg-indigo-600 rounded text-white hover:bg-indigo-500"
               >
-                {isSubmitting ? "Signing In..." : "Sign In"}
+                {isSubmitting ? (
+                  <div className="flex items-center justify-center">
+                    <Puff height={10} width={10} />
+                  </div>
+                ) : (
+                  "Sign In"
+                )}
               </button>
             </Form>
           )}

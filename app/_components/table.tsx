@@ -4,6 +4,7 @@ import { useRequest, useRequestMutation } from "../_services/http/axiosFetcher";
 import PostModal from "./PostModal";
 import { mutate } from "swr";
 import ViewModal from "./View";
+import { Puff } from "react-loader-spinner";
 
 const Table = () => {
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
@@ -49,6 +50,23 @@ const Table = () => {
       console.error("error", error);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen w-screen">
+        <Puff
+          visible={true}
+          height="80"
+          width="80"
+          color="#4fa94d"
+          ariaLabel="puff-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+        ;
+      </div>
+    );
+  }
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

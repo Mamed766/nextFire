@@ -35,8 +35,10 @@ const Dashboard = () => {
     router.push("/");
   }
 
-  const handleProfileUpdate = async () => {
+  const handleProfileUpdate = async (e: any) => {
     if (!user) return;
+
+    e.preventDefault();
 
     const email = user.email;
 
@@ -64,7 +66,7 @@ const Dashboard = () => {
   return (
     <div>
       <div className="w-full p-5 flex items-center gap-2 justify-end bg-black text-white">
-        <h2>Hello {userName}!</h2>
+        <h2>Hello {userName ? userName : "User"}!</h2>
         <button
           onClick={() => setModalIsOpen(true)}
           className=" bg-gray-400 p-1 rounded text-[12px]"
@@ -84,32 +86,34 @@ const Dashboard = () => {
 
         <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
           <h2 className="text-white text-2xl mb-5">Update Profile</h2>
-          <input
-            type="text"
-            placeholder="New Username"
-            value={newUsername}
-            onChange={(e) => setNewUsername(e.target.value)}
-            className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
-          />
-          <input
-            type="password"
-            placeholder="Current Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
-          />
-          <button
-            onClick={handleProfileUpdate}
-            className="w-full p-3 bg-indigo-600 rounded text-white hover:bg-indigo-500"
-          >
-            Save Changes
-          </button>
-          <button
-            onClick={() => setModalIsOpen(false)}
-            className="w-full mt-2 p-3 bg-red-500 rounded text-white hover:bg-red-400"
-          >
-            Cancel
-          </button>
+          <form onSubmit={handleProfileUpdate}>
+            <input
+              type="text"
+              placeholder="New Username"
+              value={newUsername}
+              onChange={(e) => setNewUsername(e.target.value)}
+              className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
+            />
+            <input
+              type="password"
+              placeholder="Current Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
+            />
+            <button
+              onClick={handleProfileUpdate}
+              className="w-full p-3 bg-indigo-600 rounded text-white hover:bg-indigo-500"
+            >
+              Save Changes
+            </button>
+            <button
+              onClick={() => setModalIsOpen(false)}
+              className="w-full mt-2 p-3 bg-red-500 rounded text-white hover:bg-red-400"
+            >
+              Cancel
+            </button>
+          </form>
         </Modal>
       </div>
       <div className="mt-5">

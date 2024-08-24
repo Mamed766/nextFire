@@ -7,6 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { updateProfile } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import { Puff } from "react-loader-spinner";
 const SignUp = () => {
   const [createUserWithEmailAndPassword] =
     useCreateUserWithEmailAndPassword(auth);
@@ -29,7 +30,10 @@ const SignUp = () => {
       .required("Required"),
   });
 
-  const handleSignUp = async (values: any, { setSubmitting }: any) => {
+  const handleSignUp = async (
+    values: any,
+    { setSubmitting, setFieldError }: any
+  ) => {
     try {
       const res = await createUserWithEmailAndPassword(
         values.email,
@@ -46,9 +50,14 @@ const SignUp = () => {
 
       setSubmitting(false);
       console.log(res);
-      router.push("/dashboard");
-    } catch (e) {
+      router.push("/");
+    } catch (e: any) {
       console.error(e);
+      if (e.code === "auth/email-already-in-use") {
+        setFieldError("email", "Bu e-posta adresi zaten kullanılıyor");
+      } else {
+        console.error(e);
+      }
       setSubmitting(false);
     }
   };
@@ -125,7 +134,13 @@ const SignUp = () => {
                 disabled={isSubmitting}
                 className="w-full p-3 bg-indigo-600 rounded text-white hover:bg-indigo-500"
               >
-                {isSubmitting ? "Signing Up..." : "Sign Up"}
+                {isSubmitting ? (
+                  <div className="flex items-center justify-center">
+                    <Puff height={10} width={10} />
+                  </div>
+                ) : (
+                  "Sign Up"
+                )}
               </button>
             </Form>
           )}
