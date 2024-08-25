@@ -80,15 +80,22 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full p-3 mb-2 bg-indigo-600 rounded text-white hover:bg-indigo-500"
+                className="relative w-full px-5 py-2.5 overflow-hidden font-medium text-indigo-600 bg-indigo-50 border border-gray-100 rounded-lg shadow-inner group"
               >
-                {isSubmitting ? (
-                  <div className="flex items-center justify-center">
-                    <Puff height={10} width={10} />
-                  </div>
-                ) : (
-                  "Sign In"
-                )}
+                <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-indigo-600 group-hover:w-full ease"></span>
+                <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-indigo-600 group-hover:w-full ease"></span>
+                <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-indigo-600 group-hover:h-full ease"></span>
+                <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-indigo-600 group-hover:h-full ease"></span>
+                <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-indigo-600 opacity-0 group-hover:opacity-100"></span>
+                <span className="relative text-base font-semibold transition-colors duration-300 delay-200 group-hover:text-white ease">
+                  {isSubmitting ? (
+                    <div className="flex items-center justify-center">
+                      <Puff height={10} width={10} />
+                    </div>
+                  ) : (
+                    "Sign In"
+                  )}
+                </span>
               </button>
             </Form>
           )}
